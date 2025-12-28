@@ -15,6 +15,40 @@
             --bg-dark: #020617;
         }
 
+        /* Custom Cursor Styles */
+        * {
+            cursor: none !important;
+        }
+
+        #cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #3b82f6;
+            position: fixed;
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+            transition: transform 0.1s ease;
+        }
+
+        #cursor-circle {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(59, 130, 246, 0.5);
+            position: fixed;
+            border-radius: 50%;
+            z-index: 9998;
+            pointer-events: none;
+            transition: transform 0.15s ease-out, width 0.3s ease, height 0.3s ease, border 0.3s ease;
+        }
+
+        .cursor-hover #cursor-circle {
+            width: 60px;
+            height: 60px;
+            border-color: rgba(59, 130, 246, 1);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg-dark);
@@ -108,7 +142,11 @@
         }
     </style>
 </head>
-<body>
+<body class="bg-slate-950">
+
+    <!-- Custom Cursor Elements -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-circle"></div>
 
     <div class="grid-bg"></div>
     <div class="glow-aura" style="top: -100px; left: -100px;"></div>
@@ -132,7 +170,7 @@
     <nav class="fixed w-full z-50 nav-glass top-0">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
-                <a href="#" class="flex items-center gap-3">
+                <a href="#" class="flex items-center gap-3 interactive">
                     <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
                         <i class="fas fa-layer-group text-white text-lg"></i>
                     </div>
@@ -140,15 +178,15 @@
                 </a>
                 
                 <div class="hidden md:flex items-center gap-10">
-                    <a href="#features" class="text-sm font-semibold text-slate-400 hover:text-white transition-colors">Infrastructure</a>
-                    <a href="#pricing" class="text-sm font-semibold text-slate-400 hover:text-white transition-colors">Pricing</a>
-                    <a href="javascript:void(0)" onclick="openPopup()" class="text-sm font-semibold text-slate-400 hover:text-white transition-colors">Network</a>
-                    <button onclick="openPopup()" class="bg-white text-slate-950 px-6 py-2.5 rounded-full text-sm font-bold hover:bg-blue-500 hover:text-white transition-all transform hover:scale-105">
+                    <a href="#features" class="text-sm font-semibold text-slate-400 hover:text-white transition-colors interactive">Infrastructure</a>
+                    <a href="#pricing" class="text-sm font-semibold text-slate-400 hover:text-white transition-colors interactive">Pricing</a>
+                    <a href="javascript:void(0)" onclick="openPopup()" class="text-sm font-semibold text-slate-400 hover:text-white transition-colors interactive">Network</a>
+                    <button onclick="openPopup()" class="bg-white text-slate-950 px-6 py-2.5 rounded-full text-sm font-bold hover:bg-blue-500 hover:text-white transition-all transform hover:scale-105 interactive">
                         Client Portal
                     </button>
                 </div>
 
-                <div class="md:hidden text-2xl cursor-pointer" onclick="openPopup()">
+                <div class="md:hidden text-2xl cursor-pointer interactive" onclick="openPopup()">
                     <i class="fas fa-bars-staggered"></i>
                 </div>
             </div>
@@ -176,17 +214,16 @@
             </p>
 
             <div class="flex flex-col sm:flex-row justify-center gap-6">
-                <button onclick="openPopup()" class="group px-10 py-5 bg-blue-600 hover:bg-blue-500 rounded-2xl font-bold text-lg transition shadow-2xl shadow-blue-600/40 flex items-center justify-center gap-3">
+                <button onclick="openPopup()" class="group px-10 py-5 bg-blue-600 hover:bg-blue-500 rounded-2xl font-bold text-lg transition shadow-2xl shadow-blue-600/40 flex items-center justify-center gap-3 interactive">
                     Start Building Free
                     <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                 </button>
-                <button onclick="openPopup()" class="px-10 py-5 glass-card rounded-2xl font-bold text-lg hover:bg-slate-800/50 transition">
+                <button onclick="openPopup()" class="px-10 py-5 glass-card rounded-2xl font-bold text-lg hover:bg-slate-800/50 transition interactive">
                     View Network Map
                 </button>
             </div>
         </div>
 
-        <!-- Abstract Decorative Element -->
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-5xl opacity-20 pointer-events-none">
             <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full animate-pulse-slow">
                 <path fill="#3b82f6" d="M44.7,-76.4C58.8,-69.2,71.8,-59.1,79.6,-45.8C87.4,-32.5,90,-16.3,88.5,-0.9C86.9,14.5,81.2,29.1,72.4,41.4C63.6,53.7,51.8,63.8,38.5,71.2C25.2,78.6,12.6,83.3,-0.8,84.7C-14.2,86.1,-28.4,84.2,-41.3,77.6C-54.2,71,-65.8,59.8,-73.4,46.7C-81,33.6,-84.6,18.8,-84.8,3.9C-85.1,-11,-82,-25.9,-75.1,-39.3C-68.2,-52.7,-57.5,-64.6,-44.4,-72.5C-31.3,-80.4,-15.6,-84.3,-0.1,-84.1C15.4,-83.9,30.7,-83.6,44.7,-76.4Z" transform="translate(100 100)" />
@@ -197,19 +234,19 @@
     <!-- Stats Bar -->
     <div class="max-w-7xl mx-auto px-6 py-12">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 py-10 border-y border-white/5 bg-white/5 backdrop-blur-sm rounded-3xl text-center">
-            <div onclick="openPopup()" class="cursor-pointer hover:opacity-80 transition">
+            <div onclick="openPopup()" class="cursor-pointer hover:opacity-80 transition interactive">
                 <div class="text-3xl font-bold text-white mb-1">99.999%</div>
                 <div class="text-xs font-bold text-slate-500 uppercase tracking-widest">Uptime SLA</div>
             </div>
-            <div onclick="openPopup()" class="cursor-pointer hover:opacity-80 transition">
+            <div onclick="openPopup()" class="cursor-pointer hover:opacity-80 transition interactive">
                 <div class="text-3xl font-bold text-white mb-1">&lt;12ms</div>
                 <div class="text-xs font-bold text-slate-500 uppercase tracking-widest">Avg Latency</div>
             </div>
-            <div onclick="openPopup()" class="cursor-pointer hover:opacity-80 transition">
+            <div onclick="openPopup()" class="cursor-pointer hover:opacity-80 transition interactive">
                 <div class="text-3xl font-bold text-white mb-1">32</div>
                 <div class="text-xs font-bold text-slate-500 uppercase tracking-widest">Global Regions</div>
             </div>
-            <div onclick="openPopup()" class="cursor-pointer hover:opacity-80 transition">
+            <div onclick="openPopup()" class="cursor-pointer hover:opacity-80 transition interactive">
                 <div class="text-3xl font-bold text-white mb-1">250K+</div>
                 <div class="text-xs font-bold text-slate-500 uppercase tracking-widest">Apps Deployed</div>
             </div>
@@ -223,13 +260,13 @@
                 <h2 class="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">The platform designed for <span class="text-blue-500">scale.</span></h2>
                 <p class="text-slate-400 text-lg">We handle the complexity of infrastructure so you can focus on writing code.</p>
             </div>
-            <button onclick="openPopup()" class="text-blue-500 font-bold hover:text-white transition flex items-center gap-2 group">
+            <button onclick="openPopup()" class="text-blue-500 font-bold hover:text-white transition flex items-center gap-2 group interactive">
                 Explore all features <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
             </button>
         </div>
 
         <div class="grid md:grid-cols-3 gap-8">
-            <div class="p-10 rounded-3xl glass-card relative overflow-hidden group cursor-pointer" onclick="openPopup()">
+            <div class="p-10 rounded-3xl glass-card relative overflow-hidden group cursor-pointer interactive" onclick="openPopup()">
                 <div class="absolute -top-10 -right-10 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl group-hover:bg-blue-500/20 transition-all"></div>
                 <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-8 shadow-xl shadow-blue-500/20">
                     <i class="fas fa-microchip text-white text-2xl"></i>
@@ -242,7 +279,7 @@
                 </div>
             </div>
 
-            <div class="p-10 rounded-3xl glass-card relative overflow-hidden group border-blue-500/30 cursor-pointer" onclick="openPopup()">
+            <div class="p-10 rounded-3xl glass-card relative overflow-hidden group border-blue-500/30 cursor-pointer interactive" onclick="openPopup()">
                 <div class="absolute -top-10 -right-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl"></div>
                 <div class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mb-8 shadow-xl shadow-emerald-500/20">
                     <i class="fas fa-shield-virus text-white text-2xl"></i>
@@ -255,7 +292,7 @@
                 </div>
             </div>
 
-            <div class="p-10 rounded-3xl glass-card relative overflow-hidden group cursor-pointer" onclick="openPopup()">
+            <div class="p-10 rounded-3xl glass-card relative overflow-hidden group cursor-pointer interactive" onclick="openPopup()">
                 <div class="absolute -top-10 -right-10 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl"></div>
                 <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mb-8 shadow-xl shadow-purple-500/20">
                     <i class="fas fa-code-branch text-white text-2xl"></i>
@@ -277,7 +314,7 @@
             <p class="text-slate-400 mb-16">Start free, then scale as your traffic grows.</p>
             
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="p-12 rounded-[2.5rem] glass-card text-left relative group">
+                <div class="p-12 rounded-[2.5rem] glass-card text-left relative group interactive" onclick="openPopup()">
                     <div class="text-blue-500 font-bold mb-4 uppercase tracking-widest text-xs">Self-Starter</div>
                     <div class="text-5xl font-extrabold mb-6">$0<span class="text-lg text-slate-500 font-normal">/mo</span></div>
                     <p class="text-slate-400 mb-8">Perfect for hobby projects and testing your first global application.</p>
@@ -292,12 +329,12 @@
                             <i class="fas fa-circle-check text-blue-500"></i> Free SSL & Custom Domains
                         </li>
                     </ul>
-                    <button onclick="openPopup()" class="w-full py-4 rounded-2xl bg-white/5 hover:bg-white/10 transition font-bold border border-white/10">
+                    <button class="w-full py-4 rounded-2xl bg-white/5 hover:bg-white/10 transition font-bold border border-white/10">
                         Get Started
                     </button>
                 </div>
 
-                <div class="p-12 rounded-[2.5rem] glass-card text-left relative overflow-hidden border-blue-500/50 ring-1 ring-blue-500/20 shadow-2xl shadow-blue-500/10">
+                <div class="p-12 rounded-[2.5rem] glass-card text-left relative overflow-hidden border-blue-500/50 ring-1 ring-blue-500/20 shadow-2xl shadow-blue-500/10 interactive" onclick="openPopup()">
                     <div class="absolute top-0 right-0 px-6 py-2 bg-blue-500 text-white font-bold text-xs uppercase tracking-tighter rounded-bl-2xl">Recommended</div>
                     <div class="text-blue-400 font-bold mb-4 uppercase tracking-widest text-xs">Pro Infrastructure</div>
                     <div class="text-5xl font-extrabold mb-6">$29<span class="text-lg text-slate-500 font-normal">/mo</span></div>
@@ -313,7 +350,7 @@
                             <i class="fas fa-circle-check text-blue-400"></i> Global Load Balancing
                         </li>
                     </ul>
-                    <button onclick="openPopup()" class="w-full py-4 rounded-2xl bg-blue-600 hover:bg-blue-500 transition font-bold text-white shadow-lg shadow-blue-500/30">
+                    <button class="w-full py-4 rounded-2xl bg-blue-600 hover:bg-blue-500 transition font-bold text-white shadow-lg shadow-blue-500/30">
                         Upgrade to Pro
                     </button>
                 </div>
@@ -336,49 +373,81 @@
                         Architecting a faster tomorrow. We provide the backbone for the world's most innovative software.
                     </p>
                     <div class="flex gap-4 mt-8">
-                        <a href="javascript:void(0)" onclick="openPopup()" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-blue-500 transition"><i class="fab fa-twitter"></i></a>
-                        <a href="javascript:void(0)" onclick="openPopup()" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-blue-500 transition"><i class="fab fa-github"></i></a>
-                        <a href="javascript:void(0)" onclick="openPopup()" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-blue-500 transition"><i class="fab fa-discord"></i></a>
+                        <a href="javascript:void(0)" onclick="openPopup()" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-blue-500 transition interactive"><i class="fab fa-twitter"></i></a>
+                        <a href="javascript:void(0)" onclick="openPopup()" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-blue-500 transition interactive"><i class="fab fa-github"></i></a>
+                        <a href="javascript:void(0)" onclick="openPopup()" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-blue-500 transition interactive"><i class="fab fa-discord"></i></a>
                     </div>
                 </div>
                 <div>
                     <h4 class="font-bold text-white mb-8 text-sm uppercase tracking-widest">Platform</h4>
                     <ul class="space-y-4 text-slate-500 font-medium">
-                        <li><a href="javascript:void(0)" onclick="openPopup()" class="hover:text-blue-400 transition">Bare Metal</a></li>
-                        <li><a href="javascript:void(0)" onclick="openPopup()" class="hover:text-blue-400 transition">Serverless</a></li>
-                        <li><a href="javascript:void(0)" onclick="openPopup()" class="hover:text-blue-400 transition">Object Storage</a></li>
-                        <li><a href="javascript:void(0)" onclick="openPopup()" class="hover:text-blue-400 transition">Edge GPU</a></li>
+                        <li><a href="javascript:void(0)" onclick="openPopup()" class="hover:text-blue-400 transition interactive">Bare Metal</a></li>
+                        <li><a href="javascript:void(0)" onclick="openPopup()" class="hover:text-blue-400 transition interactive">Serverless</a></li>
+                        <li><a href="javascript:void(0)" onclick="openPopup()" class="hover:text-blue-400 transition interactive">Object Storage</a></li>
+                        <li><a href="javascript:void(0)" onclick="openPopup()" class="hover:text-blue-400 transition interactive">Edge GPU</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-bold text-white mb-8 text-sm uppercase tracking-widest">Company</h4>
                     <ul class="space-y-4 text-slate-500 font-medium">
-                        <li><a href="javascript:void(0)" onclick="openPopup()" class="hover:text-blue-400 transition">Engineering Blog</a></li>
-                        <li><a href="javascript:void(0)" onclick="openPopup()" class="hover:text-blue-400 transition">Global Network</a></li>
-                        <li><a href="javascript:void(0)" onclick="openPopup()" class="hover:text-blue-400 transition">Status</a></li>
-                        <li><a href="javascript:void(0)" onclick="openPopup()" class="hover:text-blue-400 transition">Legal</a></li>
+                        <li><a href="javascript:void(0)" onclick="openPopup()" class="hover:text-blue-400 transition interactive">Engineering Blog</a></li>
+                        <li><a href="javascript:void(0)" onclick="openPopup()" class="hover:text-blue-400 transition interactive">Global Network</a></li>
+                        <li><a href="javascript:void(0)" onclick="openPopup()" class="hover:text-blue-400 transition interactive">Status</a></li>
+                        <li><a href="javascript:void(0)" onclick="openPopup()" class="hover:text-blue-400 transition interactive">Legal</a></li>
                     </ul>
                 </div>
             </div>
             <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-slate-600 text-xs font-bold uppercase tracking-widest">
                 <div>&copy; 2025 CloudHost Global Systems. All rights reserved.</div>
                 <div class="flex gap-8">
-                    <a href="javascript:void(0)" onclick="openPopup()" class="hover:text-white transition">Privacy Policy</a>
-                    <a href="javascript:void(0)" onclick="openPopup()" class="hover:text-white transition">Terms of Service</a>
+                    <a href="javascript:void(0)" onclick="openPopup()" class="hover:text-white transition interactive">Privacy Policy</a>
+                    <a href="javascript:void(0)" onclick="openPopup()" class="hover:text-white transition interactive">Terms of Service</a>
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
+        // Custom Cursor Logic
+        const dot = document.getElementById('cursor-dot');
+        const circle = document.getElementById('cursor-circle');
+
+        document.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            // Immediate position for dot
+            dot.style.transform = `translate(${posX - 4}px, ${posY - 4}px)`;
+            
+            // Slightly delayed position for circle via CSS transition
+            circle.style.transform = `translate(${posX - 20}px, ${posY - 20}px)`;
+        });
+
+        // Hover Effect on interactive elements
+        const interactives = document.querySelectorAll('button, a, .interactive');
+        interactives.forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+        });
+
+        // Hide cursor when leaving window
+        document.addEventListener('mouseleave', () => {
+            dot.style.opacity = '0';
+            circle.style.opacity = '0';
+        });
+        document.addEventListener('mouseenter', () => {
+            dot.style.opacity = '1';
+            circle.style.opacity = '1';
+        });
+
+        // Popup Logic
         function openPopup() {
             const popup = document.getElementById('dev-popup');
             popup.style.display = 'flex';
-            // Trigger animation on next frame
             requestAnimationFrame(() => {
                 popup.classList.add('active');
             });
-            document.body.style.overflow = 'hidden'; // Prevent scrolling
+            document.body.style.overflow = 'hidden';
         }
 
         function closePopup() {
@@ -386,11 +455,10 @@
             popup.classList.remove('active');
             setTimeout(() => {
                 popup.style.display = 'none';
-                document.body.style.overflow = ''; // Restore scrolling
+                document.body.style.overflow = '';
             }, 300);
         }
 
-        // Close on Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closePopup();
         });
